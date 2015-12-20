@@ -1,5 +1,5 @@
 class PlayerClass:
-    self.__init__(self, StatArray)
+    def __init__(self, StatArray):
         self.STR = StatArray[0]
         self.DEX = StatArray[1]
         self.INT = StatArray[2]

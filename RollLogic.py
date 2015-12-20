@@ -3,31 +3,31 @@ import PlayerClass
 import random
 # Input = None
 # Output = StatsArray[ "STR","DEX","INT","CON","WIS","CHA" ]
-def RollStats():
-    StatsArray = []
+def RollStats(globalOptions):
     mercyRule = True
 
     while(mercyRule):
+        StatsArray = []
         for i in range(0, 6):
-            StatsArray[i] = random.randint(1, 6) + random.randint(1,6) + random.randint(1, 6)
-            mercyRule = MercyRule(StatsArray)
+            StatsArray.append( (random.randint(1, 6) + random.randint(1,6) + random.randint(1, 6)) )
+            mercyRule = MercyRule(StatsArray, globalOptions)
         return StatsArray
 
 def MercyRule(StatsArray, globalOptions):
-    if globalOptions.gameEdition == "Holmes":
+    if globalOptions.GameEdition == "Holmes":
         mercyRule = holmesMercyRule(StatsArray)
-    elif globalOptions.gameEdition == "Moldvay":
+    elif globalOptions.GameEdition == "Moldvay":
         mercyRule = moldvayMercyRule(StatsArray)
-    elif globalOptions.gameEdition == "Mentzer":
+    elif globalOptions.GameEdition == "Mentzer":
         mercyRule = mentzerMercyRule(StatsArray)
     return mercyRule
 
-def holmesMercyRule():
+def holmesMercyRule(StatsArray):
     # No mercy
     # Mercy is for the weak
     return False
 
-def moldvayMercyRule():
+def moldvayMercyRule(StatsArray):
     i = 0
     for element in StatsArray:
         if element < 6:
@@ -39,7 +39,7 @@ def moldvayMercyRule():
     return False
    
 
-def mentzerMercyRule():
+def mentzerMercyRule(StatsArray):
     i = 0
     for element in StatsArray:
         if element < 6:
@@ -52,7 +52,7 @@ def mentzerMercyRule():
 
 
 def main():
-    globalOptions = GlobalOptions("Moldvay")
+    globalOptions = GlobalOptions.GlobalOptions("Moldvay")
     StatsArray = RollStats(globalOptions)
     print(StatsArray)
 
